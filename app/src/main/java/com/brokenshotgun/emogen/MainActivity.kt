@@ -3,11 +3,12 @@ package com.brokenshotgun.emogen
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import androidx.annotation.DrawableRes
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
 
-    val emotions = arrayOf(
+    private val emotions = arrayOf(
         R.drawable.angry,
         R.drawable.anxious,
         R.drawable.ashamed,
@@ -47,7 +48,15 @@ class MainActivity : AppCompatActivity() {
         randomizeEmotion()
     }
 
+    @DrawableRes
+    private var previousEmotion = -1
+
     private fun randomizeEmotion() {
-        emotionImageView.setImageResource(emotions.random())
+        var emotion = emotions.random()
+        while(emotion == previousEmotion) {
+            emotion = emotions.random()
+        }
+        emotionImageView.setImageResource(emotion)
+        previousEmotion = emotion
     }
 }
